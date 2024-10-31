@@ -108,20 +108,26 @@ SELECT COUNT(*) > 0 FROM indicados_ao_oscar WHERE nome_do_indicado LIKE '%Denzel
 
 * Quais os filmes que ganharam o Oscar de Melhor Filme?
 
-<p>R: Wings, The Broadway Melody, All Quiet on the Western Front, Cimarron, Grand Hotel, Cavalcade, It Happened One Night, Mutiny on the Bounty, The Great Ziegfeld, The Life of Emile Zola, You Can't Take It with You, Gone with the Wind, Rebecca, How Green Was My Valley, Mrs. Miniver, Casablanca, Going My Way, The Lost Weekend, The Best Years of Our Lives, Gentleman's Agreement, Hamlet, All the King's Men, All About Eve, An American in Paris, The Greatest Show on Earth, From Here to Eternity, On the Waterfront, Marty, Around the World in 80 Days, The Bridge on the River Kwai, Gigi, Ben-Hur, The Apartment, West Side Story, Lawrence of Arabia, Tom Jones, My Fair Lady, A Man for All Seasons, A Man and a Woman, In the Heat of the Night, Oliver!, Midnight Cowboy, Patton, The Godfather, The Godfather Part II, The Sting, One Flew Over the Cuckoo's Nest, Rocky, Annie Hall, The Deer Hunter, Kramer vs. Kramer, Ordinary People, Chariots of Fire, Gandhi, Terms of Endearment, Amadeus, Out of Africa, Platoon, The Last Emperor, Rain Man, Driving Miss Daisy, Dances with Wolves, The Silence of the Lambs, Unforgiven, Schindler's List, Forrest Gump, Braveheart, The English Patient, Titanic, Shakespeare in Love, American Beauty, Gladiator, A Beautiful Mind, The Lord of the Rings: The Return of the King, Million Dollar Baby, Crash, The Departed, No Country for Old Men, Slumdog Millionaire, The Hurt Locker, The King's Speech, The Artist, Argo, 12 Years a Slave, Birdman or (The Unexpected Virtue of Ignorance), Spotlight, Moonlight, The Shape of Water, Green Book, Parasite, Nomadland, CODA e Everything Everywhere All at Once</p>
+<p>R: Lawrence of Arabia, Tom Jones, My Fair Lady, The Sound of Music, A Man for All Seasons, In the Heat of the Night, Oliver!, Midnight Cowboy, Patton, The French Connection, The Godfather, The Sting, The Godfather Part II, One Flew Over the Cuckoo's Nest, Rocky, Annie Hall, The Deer Hunter, Kramer vs. Kramer, Ordinary People, Chariots of Fire, Gandhi, Terms of Endearment, Amadeus, Out of Africa, Platoon, The Last Emperor, Rain Man, Driving Miss Daisy, Dances With Wolves, The Silence of the Lambs, Unforgiven, Schindler's List, Forrest Gump, Braveheart, The English Patient, Titanic, Shakespeare in Love, American Beauty, Gladiator, A Beautiful Mind, Chicago, The Lord of the Rings: The Return of the King, Million Dollar Baby, Crash, The Departed, No Country for Old Men, Slumdog Millionaire, The Hurt Locker, The King's Speech, The Artist, Argo, 12 Years a Slave, Birdman or (The Unexpected Virtue of Ignorance), Spotlight, Moonlight, The Shape of Water, Green Book, Parasite, Nomadland, CODA, Everything Everywhere All at Once, Oppenheimer.</p>
 <p>Q:</p>
 
 ```sql
-SELECT DISTINCT nome_do_filme FROM indicados_ao_oscar WHERE vencedor = 1;
+SELECT DISTINCT nome_do_filme FROM indicados_ao_oscar WHERE categoria = 'BEST PICTURE' AND vencedor = 1;
 ```
 
 * Bonus: Quais os filmes que ganharam o Oscar de Melhor Filme e Melhor Diretor na mesma cerimonia?
 
-<p>R: The Divine Lady, All Quiet on the Western Front, Skippy, Bad Girl, Cavalcade, It Happened One Night, The Informer, Mr. Deeds Goes to Town, The Awful Truth, You Can't Take It with You, Gone with the Wind, The Grapes of Wrath, How Green Was My Valley, Mrs. Miniver, Casablanca, Going My Way, The Lost Weekend, The Best Years of Our Lives, Gentleman's Agreement, The Treasure of the Sierra Madre, A Letter to Three Wives, All About Eve, A Place in the Sun, The Quiet Man, From Here to Eternity, On the Waterfront, Marty, Giant, The Bridge on the River Kwai, Gigi, Ben-Hur, The Apartment, West Side Story, Lawrence of Arabia, Tom Jones, My Fair Lady, The Sound of Music, A Man for All Seasons, The Graduate, In the Heat of the Night, Oliver!, Midnight Cowboy, Patton, The French Connection, Cabaret, The Godfather, The Sting, The Godfather Part II, One Flew Over the Cuckoo's Nest, Rocky, Annie Hall, The Deer Hunter, Kramer vs. Kramer, Ordinary People, Reds, Chariots of Fire, Gandhi, Terms of Endearment, Amadeus, Out of Africa, Platoon, The Last Emperor, Rain Man, Born on the Fourth of July, Driving Miss Daisy, Dances with Wolves, The Silence of the Lambs, Unforgiven, Schindler's List, Forrest Gump, Braveheart, The English Patient, Titanic, Saving Private Ryan, Shakespeare in Love, American Beauty, Traffic, Gladiator, A Beautiful Mind, The Pianist, Chicago, The Lord of the Rings: The Return of the King, Million Dollar Baby, Brokeback Mountain, Crash, The Departed, No Country for Old Men, Slumdog Millionaire, The Hurt Locker, The King's Speech, The Artist, Life of Pi, Argo, Gravity, 12 Years a Slave, Birdman or (The Unexpected Virtue of Ignorance), The Revenant, Spotlight, La La Land, Moonlight, The Shape of Water, Roma, Green Book, Parasite, Nomadland, The Power of the Dog, CODA, Everything Everywhere All at Once, e Oppenheimer</p>
+<p>R: Lawrence of Arabia, Tom Jones, My Fair Lady, The Sound of Music, A Man for All Seasons, Oliver!, Midnight Cowboy, Patton, The French Connection, The Sting, The Godfather Part II, One Flew Over the Cuckoo's Nest, Rocky, Annie Hall, The Deer Hunter, Kramer vs. Kramer, Ordinary People, Gandhi, Terms of Endearment, Amadeus, Out of Africa, Platoon, The Last Emperor, Rain Man, Dances With Wolves, The Silence of the Lambs, Unforgiven, Schindler's List, Forrest Gump, Braveheart, The English Patient, Titanic, American Beauty, A Beautiful Mind, The Lord of the Rings: The Return of the King, Million Dollar Baby, The Departed, No Country for Old Men, Slumdog Millionaire, The Hurt Locker, The King's Speech, The Artist, Birdman or (The Unexpected Virtue of Ignorance), The Shape of Water, Parasite, Nomadland, Everything Everywhere All at Once, Oppenheimer.</p>
 <p>Q:</p>
 
 ```sql
-SELECT DISTINCT nome_do_filme FROM indicados_ao_oscar WHERE categoria IN ('BEST PICTURE','DIRECTING') AND vencedor LIKE 1;
+SELECT DISTINCT nome_do_filmen FROM indicados_ao_oscar
+WHERE vencedor = 1 AND categoria = 'BEST PICTURE'AND nome_do_filme IN (
+      SELECT nome_do_filme
+      FROM indicados_ao_oscar
+      WHERE categoria = 'DIRECTING' 
+      AND vencedor = 1
+  );
 ```
 
 * Bonus: Denzel Washington e Jamie Foxx já concorreram ao Oscar no mesmo ano?
@@ -130,9 +136,7 @@ SELECT DISTINCT nome_do_filme FROM indicados_ao_oscar WHERE categoria IN ('BEST 
 <p>Q:</p>
 
 ```sql
-SELECT COUNT(*) > 0
-FROM indicados_ao_oscar 
-WHERE nome_do_indicado IN ('Denzel Washington','Jamie Foxx') 
-GROUP BY ano_cerimonia
-HAVING COUNT(*) = 2;
+SELECT COUNT(*) > 0 FROM indicados_ao_oscar AS a
+JOIN indicados_ao_oscar AS b  ON a.ano_cerimonia = b.ano_cerimonia
+WHERE a.nome_do_indicado = 'Denzel Washington' AND b.nome_do_indicado = 'Jamie Foxx';
 ```
